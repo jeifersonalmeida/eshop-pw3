@@ -308,8 +308,8 @@
 				<ul class="menu-list">
 					<li><a href="#">Home</a></li>
 					<li><a href="./products.php">Shop</a></li>
-					<li><a href="?param=ram&">RAM</a></li>
-					<li><a href="?param=vga&">VGA</a></li>
+					<li><a href="./products.php?param=ram&">RAM</a></li>
+					<li><a href="./products.php?param=vga&">VGA</a></li>
 					<!-- <li class="dropdown mega-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Women <i class="fa fa-caret-down"></i></a>
 						<div class="custom-menu">
 							<div class="row">

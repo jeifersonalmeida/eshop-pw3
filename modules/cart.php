@@ -24,26 +24,28 @@
 		<div id="shopping-cart">
 			<div class="shopping-cart-list">
 				<?php 
-					foreach($_SESSION["cartList"]["products"] as $key=>$value)
+					foreach($_SESSION["cartList"]["products"] as $key=>$value) {
+						$url = "id=".$value["id"]."&param=".$value["tipo"]."&";
 						echo '
 						<div class="product product-widget">
 							<div class="product-thumb">
-								<img src="'.$value["img"].'" alt="'.$value["name"].'">
+								<img src="'.$value["imagem"].'" alt="'.$value["nome"].'">
 							</div>
 							<div class="product-body">
-								<h3 class="product-price">R$'.$value["price"].' <span class="qty">x'.$value["qtt"].'</span></h3>
-								<h2 class="product-name"><a href="#">'.$value["name"].'</a></h2>
+								<h3 class="product-price">R$'.$value["preco"].' <span class="qty">x1</span></h3>
+								<h2 class="product-name"><a href="product.php?';
+								echo $url;
+								echo '">'.$value["nome"].'</a></h2>
 							</div>
 							<button class="cancel-btn"><i class="fa fa-trash"></i></button>
-						</div>'; 
-
-				?>
-					
+						</div>';
+					}
+				?>					
 				
 			</div>
 			<div class="shopping-cart-btns">
 				<button class="main-btn">View Cart</button>
-				<button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+				<button class="primary-btn"><a href= './checkout.php?'>Checkout</a> <i class="fa fa-arrow-circle-right"></i></button>
 			</div>
 		</div>
 	</div>
