@@ -4,6 +4,40 @@
 <?php include "modules/head.php"; ?>
 </head>
 <body>
+	<?php
+		$productsList = json_decode(
+			file_get_contents("http://ramos.atwebpages.com/api/produtos.php?param=todos"), true);
+
+		if(isset($_GET["param"])) {
+			$productsList = array_filter($productsList, function($product) {
+				return $product["tipo"] == $_GET["param"];
+			});
+		}
+		
+		$brands = [];
+		foreach($productsList as $product) {
+			if(!in_array($product["marca"], $brands)) {
+				$brands[] = $product["marca"];
+			}
+		}
+
+		if(isset($_GET["sort"]) && $_GET["sort"] == "incPrice") {
+			usort($productsList, function($productA, $productB) {
+				if($productA["preco"] < $productB["preco"])
+					return -1;
+				else if($productA["preco"] > $productB["preco"])
+					return 1;
+				else
+					return 0;
+			});
+		}
+		if(isset($_GET["brand"])) {
+			$productsList = array_map(function($product) {
+				if($product["marca"] == $_GET["brand"])
+					return $product;
+			}, $productsList);
+		}
+	?>
 	<?php include "modules/header.php"; ?>
 
 	<!-- BREADCRUMB -->
@@ -94,10 +128,14 @@
 					<div class="aside">
 						<h3 class="aside-title">Filter by Brand</h3>
 						<ul class="list-links">
-							<li><a href="#">Nike</a></li>
-							<li><a href="#">Adidas</a></li>
-							<li><a href="#">Polo</a></li>
-							<li><a href="#">Lacost</a></li>
+							<?php
+								echo "<li onclick=\"location.search = location.search.replace(/brand=[a-zA-Z]*&?/, '');\"><a>Todas</a></li>";
+
+								foreach($brands as $brand) {
+									echo "<li onclick=\"location.search += 'brand="
+										.$brand."&';\"><a>".$brand."</a></li>";
+								}
+							?>
 						</ul>
 					</div>
 					<!-- /aside widget -->
@@ -168,22 +206,23 @@
 							</div>
 							<div class="sort-filter">
 								<span class="text-uppercase">Sort By:</span>
-								<select class="input">
-										<option value="0">Position</option>
-										<option value="0">Price</option>
-										<option value="0">Rating</option>
-									</select>
-								<a href="#" class="main-btn icon-btn"><i class="fa fa-arrow-down"></i></a>
+								<select class="input" onchange="location += this.value;">
+									<option value="" onclick="location = location.toString().replace('sort=incPrice&', '');">Posição</option>
+									<option value="sort=incPrice&" <?php if(isset($_GET["sort"])
+										&& $_GET["sort"] == "incPrice") echo "selected"?>>Preço crescente</option>
+									<!-- <option value="">Rating</option> -->
+								</select>
+								<!-- <a href="?param=ramPreco" class="main-btn icon-btn"><i class="fa fa-arrow-down"></i></a> -->
 							</div>
 						</div>
 						<div class="pull-right">
 							<div class="page-filter">
 								<span class="text-uppercase">Show:</span>
 								<select class="input">
-										<option value="0">10</option>
-										<option value="1">20</option>
-										<option value="2">30</option>
-									</select>
+									<option value="0">10</option>
+									<option value="1">20</option>
+									<option value="2">30</option>
+								</select>
 							</div>
 							<ul class="store-pages">
 								<li><span class="text-uppercase">Page:</span></li>
@@ -201,10 +240,7 @@
 						<!-- row -->
 						<div class="row">
 							<?php
-								$productsList = json_decode(
-									file_get_contents("http://ramos.atwebpages.com/api/produtos.php?param=todos"), true);
-
-								foreach($productsList as $product): ?>
+								foreach($productsList as $product): if($product == null) continue; ?>
 									<div class="col-md-4 col-sm-6 col-xs-6">
 										<div class="product product-single">
 											<div class="product-thumb">
