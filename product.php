@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<?php include "modules/head.php"; ?>
+	<?php include "modules/head.php"; ?>
 </head>
 <body>
-<?php include "modules/header.php"; ?>
-<?php 
+	<?php 
+		$list = json_decode(
+			file_get_contents("http://ramos.atwebpages.com/api/produtos.php?param=todos"), true);
 
-    $list = json_decode(
-        file_get_contents("http://ramos.atwebpages.com/api/produtos.php?param=todos"), true);
-        foreach($list as $key=>$value){
-            if($value["id"] == $_GET["id"] && $value["tipo"] == $_GET["param"]) {
-                $elem = $value;
-                break;
-            }
-        }
-        //echo var_dump($elem);
-?>
+		foreach($list as $key=>$value) {
+			if($value["id"] == $_GET["id"] && $value["tipo"] == $_GET["param"]) {
+				$elem = $value;
+				break;
+			}
+		}
+
+		include "modules/header.php";
+	?>
+
     <!-- BREADCRUMB -->
 	<div id="breadcrumb">
 		<div class="container">
@@ -29,6 +30,7 @@
 		</div>
 	</div>
     <!-- /BREADCRUMB -->
+	
     <!-- section -->
 	<div class="section">
 		<!-- container -->
@@ -93,7 +95,8 @@
 									<span class="text-uppercase">QTY: </span>
 									<input class="input" type="number">
 								</div>
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+								<?php $url = "id=".$elem["id"]."&param=".$elem["tipo"]."&" ?>
+								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> <a href="logic/addToCart.php?<?php echo $url; ?>">Add to Cart</a></button>
 								<div class="pull-right">
 									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>

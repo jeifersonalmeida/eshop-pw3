@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<?php include "modules/head.php"; ?>
+	<?php include "modules/head.php"; ?>
 </head>
 <body>
 	<?php
@@ -31,14 +31,16 @@
 					return 0;
 			});
 		}
+
 		if(isset($_GET["brand"])) {
 			$productsList = array_map(function($product) {
 				if($product["marca"] == $_GET["brand"])
 					return $product;
 			}, $productsList);
 		}
+
+		include "modules/header.php";
 	?>
-	<?php include "modules/header.php"; ?>
 
 	<!-- BREADCRUMB -->
 	<div id="breadcrumb">
@@ -265,7 +267,7 @@
 												<div class="product-btns">
 													<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 													<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-													<button class="primary-btn add-to-cart"></i> <a href="logic/addToCart.php?<?php echo $url; ?>">Add to Cart</a></button>
+													<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> <a href="logic/addToCart.php?<?php echo $url; ?>">Add to Cart</a></button>
 												</div>
 											</div>
 										</div>

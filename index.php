@@ -1,15 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
 	<?php include "modules/head.php"; ?>
 </head>
-
 <body>
-<?php 
-	include "modules/header.php";
-	include "modules/footer.php";
-?>
-
+	<?php header("Location: http://localhost/eshop/products.php?"); ?>
 </body>
-
 </html>
