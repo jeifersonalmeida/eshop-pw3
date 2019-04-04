@@ -25,7 +25,7 @@
             <div class="row">
                 <form id="checkout-form" class="clearfix">
                     <div class="col-md-6">
-                        <div class="billing-details">
+                        <!-- <div class="billing-details">
                             <p>Already a customer ? <a href="#">Login</a></p>
                             <div class="section-title">
                                 <h3 class="title">Billing Details</h3>
@@ -65,11 +65,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="col-md-6">
-                        <div class="shiping-methods">
+                        <!-- <div class="shiping-methods">
                             <div class="section-title">
                                 <h4 class="title">Shiping Methods</h4>
                             </div>
@@ -89,9 +89,9 @@
                                         <p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="payments-methods">
+                        <!-- <div class="payments-methods">
                             <div class="section-title">
                                 <h4 class="title">Payments Methods</h4>
                             </div>
@@ -119,7 +119,7 @@
                                         <p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="col-md-12">
@@ -149,7 +149,7 @@
                                             <td class="details">
                                                 <a href="'.$url.'">'.$value["nome"].'</a>
                                             </td>
-                                            <td class="price text-center"><strong>R$'. $value["preco"] .'</strong><br><del class="font-weak"><small>$40.00</small></del></td>
+                                            <td class="price text-center"><strong>R$'. $value["preco"] .'</strong><br><del class="font-weak"><small>R$'.number_format($value["preco"]/0.8, 2, ",", ".").'</small></del></td>
                                             <td class="qty text-center"><input class="input" type="number" value="1"></td>
                                             <td class="total text-center"><strong class="primary-color">$'.$value["preco"].'</strong></td>
                                             <td class="text-right"><button class="main-btn icon-btn"><i class="fa fa-close"></i></button></td>
